@@ -66,9 +66,7 @@ namespace HdUtilities.Extensions
             return values.Any(e => e.Equals(input));
         }
 
-        public static bool DoesNotMatchAny<T>(
-            this T input,
-            params T[] values)
+        public static bool DoesNotMatchAny<T>(this T input,params T[] values)
         {
             return !values.Any(e => e.Equals(input));
         }
