@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace MafxToSdfCreator.Collections
+namespace HdUtilities.Collections
 {
     public class ConcurrentHashSet<T> : IEnumerable<T>, IDisposable
     {

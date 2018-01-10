@@ -10,7 +10,7 @@
 
         public static bool SafeBool(bool? nullableFlag)
         {
-            return (nullableFlag.HasValue && nullableFlag.Value);
+            return nullableFlag.GetValueOrDefault();
         }
 
         public static string Safe(this string inputString)
