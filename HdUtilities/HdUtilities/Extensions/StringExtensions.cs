@@ -153,5 +153,15 @@ namespace HdUtilities.Extensions
             }
             return string.Join(string.Empty, input.Safe(), string.Concat(strings));
         }
+
+        public static string EncodeString64(this string toEncode)
+        {
+            return Convert.ToBase64String(Encoding.Unicode.GetBytes(toEncode));
+        }
+
+        public static string DecodeString64(this string encodedData)
+        {
+            return Encoding.Unicode.GetString(Convert.FromBase64String(encodedData));
+        }
     }
 }
