@@ -80,7 +80,7 @@ namespace HdUtilities.Extensions
             return result.ToList();
         }
 
-        public static void IterateAndReport<T>(this IEnumerable<T> enumerable, Action<T> action, Action<string> reportProgress)
+        public static void IterateAndReport<T>(this IEnumerable<T> enumerable, Action<T> action, Action<string> reportProgress, int maxDegreeOfParallelism = 3)
         {
             var collection = enumerable.ToList();
             var reportIncrement = 0;
@@ -109,7 +109,7 @@ namespace HdUtilities.Extensions
             int uCount = 0;
             var loopCounterLock = new object();
             Parallel.ForEach(collection,
-                new ParallelOptions() {MaxDegreeOfParallelism = 1},
+                new ParallelOptions() {MaxDegreeOfParallelism = maxDegreeOfParallelism},
                 u =>
                 {
                     action.Invoke(u);
@@ -123,6 +123,22 @@ namespace HdUtilities.Extensions
                     }
                 }
                 );
+        }
+
+        public static bool None<TSource>(this IEnumerable<TSource> source)
+        {
+            var iCollection = source as ICollection<TSource>;
+            if (iCollection != null)
+            {
+                return iCollection.Count == 0;
+            }
+            return !source.Any();
+        }
+
+        public static bool None<TSource>(this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
+        {
+            return !source.Any(predicate);
         }
     }
 }
